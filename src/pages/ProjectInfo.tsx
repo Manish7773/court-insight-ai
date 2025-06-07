@@ -66,7 +66,7 @@ const ProjectInfo = () => {
             Project Overview
           </h1>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Revolutionizing legal analysis through artificial intelligence and machine learning powered by Google Gemini
+            Revolutionizing legal analysis through artificial intelligence and machine learning
           </p>
         </div>
 
@@ -81,7 +81,7 @@ const ProjectInfo = () => {
           <CardContent className="space-y-4 text-lg leading-relaxed">
             <p>
               The Court Case Judgement Analysis system represents a groundbreaking approach to legal technology, 
-              leveraging Google Gemini AI to assist legal professionals in predicting case outcomes 
+              leveraging advanced AI to assist legal professionals in predicting case outcomes 
               with unprecedented accuracy.
             </p>
             <p>
@@ -92,7 +92,7 @@ const ProjectInfo = () => {
             </p>
             <p>
               This system serves as a powerful tool for lawyers, judges, legal researchers, and law students, 
-              offering comprehensive analysis capabilities powered by Google's state-of-the-art Gemini AI model 
+              offering comprehensive analysis capabilities powered by state-of-the-art AI models 
               that were previously impossible without extensive manual research and years of experience.
             </p>
           </CardContent>
@@ -116,7 +116,7 @@ const ProjectInfo = () => {
               <div className="space-y-3">
                 <h4 className="font-semibold text-blue-400">Primary Objectives:</h4>
                 <ul className="space-y-2 text-slate-300">
-                  <li>• Accelerate legal research processes using Gemini AI</li>
+                  <li>• Accelerate legal research processes using AI</li>
                   <li>• Enhance prediction accuracy of case outcomes</li>
                   <li>• Reduce judicial bias through data-driven insights</li>
                   <li>• Improve access to legal intelligence for all practitioners</li>

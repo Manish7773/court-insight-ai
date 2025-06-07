@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,7 @@ const PredictionResult = () => {
 
     setCaseDetails(submittedCase);
     
-    // Call Gemini AI for prediction
+    // Call AI for prediction
     const getPrediction = async () => {
       try {
         const result = await analyzeCaseWithGemini(submittedCase);
@@ -89,9 +88,9 @@ const PredictionResult = () => {
         <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white max-w-md w-full mx-4">
           <CardHeader className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400 mx-auto mb-4" />
-            <CardTitle className="text-2xl">Analyzing Your Case with Gemini AI</CardTitle>
+            <CardTitle className="text-2xl">Analyzing Your Case with AI</CardTitle>
             <CardDescription className="text-slate-300">
-              Google Gemini is processing legal precedents and case patterns...
+              AI is processing legal precedents and case patterns...
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -102,7 +101,7 @@ const PredictionResult = () => {
               </div>
               <Progress value={85} className="w-full" />
               <div className="text-center text-sm text-slate-400">
-                Powered by Google Gemini AI - Analyzing legal complexity
+                Powered by AI - Analyzing legal complexity
               </div>
             </div>
           </CardContent>
@@ -131,11 +130,11 @@ const PredictionResult = () => {
             <Scale className="h-16 w-16 text-blue-400" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Gemini AI Prediction
+            AI Prediction
             <span className="block text-blue-400">Result</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            AI-powered analysis complete with detailed outcome prediction powered by Google Gemini
+            AI-powered analysis complete with detailed outcome prediction
           </p>
         </div>
 
@@ -147,7 +146,7 @@ const PredictionResult = () => {
                 {getOutcomeIcon(prediction.type)}
               </div>
               <CardTitle className="text-3xl font-bold mb-2">
-                Gemini AI Predicted Outcome
+                AI Predicted Outcome
               </CardTitle>
               <CardDescription className="text-white/90 text-xl">
                 {prediction.outcome}
@@ -172,7 +171,7 @@ const PredictionResult = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <FileText className="h-6 w-6 text-blue-400" />
-                  Gemini AI Legal Reasoning
+                  AI Legal Reasoning
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -195,14 +194,14 @@ const PredictionResult = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <TrendingUp className="h-6 w-6 text-emerald-400" />
-                  Gemini AI Analysis Metrics
+                  AI Analysis Metrics
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-300">AI Model Used</span>
                   <Badge variant="secondary" className="bg-blue-600/20 text-blue-300">
-                    Google Gemini Pro
+                    Advanced AI
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">

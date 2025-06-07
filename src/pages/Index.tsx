@@ -128,7 +128,7 @@ const Index = () => {
             </h1>
             
             <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Advanced AI-powered legal analysis platform using Google Gemini for predicting case outcomes and supporting legal professionals with intelligent insights.
+              Advanced AI-powered legal analysis platform for predicting case outcomes and supporting legal professionals with intelligent insights.
             </p>
 
             {/* Court & AI Themed Images */}
@@ -283,11 +283,11 @@ const Index = () => {
             <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
               <CardHeader>
                 <BookOpen className="h-12 w-12 text-blue-400 mb-4" />
-                <CardTitle>Gemini AI Analysis</CardTitle>
+                <CardTitle>AI Analysis</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-slate-300">
-                  Powered by Google Gemini AI to analyze case details and legal precedents with advanced reasoning.
+                  Powered by advanced AI to analyze case details and legal precedents with sophisticated reasoning.
                 </CardDescription>
               </CardContent>
             </Card>

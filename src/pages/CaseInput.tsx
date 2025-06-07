@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,7 @@ import { toast } from "sonner";
 const CaseInput = () => {
   const [caseDetails, setCaseDetails] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
+  const [navigate] = useNavigate();
 
   const maxLength = 3000;
   const remainingChars = maxLength - caseDetails.length;
@@ -43,7 +42,7 @@ const CaseInput = () => {
     // Store case details for the results page
     localStorage.setItem("submittedCase", caseDetails);
     
-    toast.success("Case submitted successfully! Analyzing with Gemini AI...");
+    toast.success("Case submitted successfully! Analyzing with AI...");
     navigate("/prediction-result");
   };
 
@@ -66,10 +65,10 @@ const CaseInput = () => {
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Submit Legal Case
-            <span className="block text-blue-400">for Gemini AI Prediction</span>
+            <span className="block text-blue-400">for AI Prediction</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Provide detailed case information for our Gemini AI system to analyze and predict the most likely judicial outcome
+            Provide detailed case information for our AI system to analyze and predict the most likely judicial outcome
           </p>
         </div>
 
@@ -79,7 +78,7 @@ const CaseInput = () => {
             <CardHeader>
               <CardTitle className="text-2xl flex items-center gap-3">
                 <FileText className="h-8 w-8 text-blue-400" />
-                Case Details Submission for Gemini AI Analysis
+                Case Details Submission for AI Analysis
               </CardTitle>
               <CardDescription className="text-slate-300 text-lg">
                 Enter comprehensive case information including facts, context, legal issues, and relevant circumstances for AI analysis
@@ -106,7 +105,7 @@ Example format:
 • Precedents: Relevant case law or statutes
 • Circumstances: Any special circumstances or considerations
 
-Please be as detailed and specific as possible to ensure accurate Gemini AI prediction."
+Please be as detailed and specific as possible to ensure accurate AI prediction."
                       value={caseDetails}
                       onChange={(e) => setCaseDetails(e.target.value.slice(0, maxLength))}
                       className="min-h-[400px] bg-white/5 border-white/20 text-white placeholder:text-slate-400 resize-none text-lg leading-relaxed"
@@ -124,14 +123,14 @@ Please be as detailed and specific as possible to ensure accurate Gemini AI pred
                     <div className="flex items-start gap-3">
                       <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
                       <div className="space-y-2">
-                        <h4 className="font-semibold text-blue-400">Gemini AI Analysis Guidelines:</h4>
+                        <h4 className="font-semibold text-blue-400">AI Analysis Guidelines:</h4>
                         <ul className="text-sm text-slate-300 space-y-1">
                           <li>• Provide objective facts without personal opinions</li>
                           <li>• Include relevant dates, locations, and parties involved</li>
                           <li>• Mention applicable laws, regulations, or precedents</li>
                           <li>• Describe the relief or remedy sought</li>
                           <li>• Include any mitigating or aggravating circumstances</li>
-                          <li>• The more detailed your input, the better Gemini AI can analyze</li>
+                          <li>• The more detailed your input, the better AI can analyze</li>
                         </ul>
                       </div>
                     </div>
@@ -163,12 +162,12 @@ Please be as detailed and specific as possible to ensure accurate Gemini AI pred
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3" />
-                        Submitting to Gemini AI...
+                        Submitting to AI...
                       </>
                     ) : (
                       <>
                         <Send className="mr-3 h-6 w-6" />
-                        🧾 Analyze with Gemini AI
+                        🧾 Analyze with AI
                       </>
                     )}
                   </Button>
@@ -181,11 +180,11 @@ Please be as detailed and specific as possible to ensure accurate Gemini AI pred
           <div className="grid md:grid-cols-2 gap-6 mt-8">
             <Card className="bg-white/5 backdrop-blur-sm border-white/20 text-white">
               <CardHeader>
-                <CardTitle className="text-lg">Gemini AI Processing</CardTitle>
+                <CardTitle className="text-lg">AI Processing</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-300">
-                  Our Google Gemini AI system analyzes your case within seconds, processing legal precedents and patterns with advanced reasoning.
+                  Our AI system analyzes your case within seconds, processing legal precedents and patterns with advanced reasoning.
                 </p>
               </CardContent>
             </Card>
@@ -196,7 +195,7 @@ Please be as detailed and specific as possible to ensure accurate Gemini AI pred
               </CardHeader>
               <CardContent>
                 <p className="text-slate-300">
-                  Powered by Google Gemini, our system provides highly accurate predictions based on comprehensive legal analysis.
+                  Powered by advanced AI, our system provides highly accurate predictions based on comprehensive legal analysis.
                 </p>
               </CardContent>
             </Card>

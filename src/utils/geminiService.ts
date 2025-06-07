@@ -1,5 +1,5 @@
 
-const GEMINI_API_KEY = "AIzaSyCbq506I2TujjWKobkx5J9BdxkzHaklGrs";
+const GEMINI_API_KEY = "";
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
 export interface PredictionResult {
@@ -50,7 +50,7 @@ Consider legal precedents, evidence strength, procedural requirements, and appli
     });
 
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.status}`);
+      throw new Error(`API error: ${response.status}`);
     }
 
     const data = await response.json();
@@ -59,7 +59,7 @@ Consider legal precedents, evidence strength, procedural requirements, and appli
     // Extract JSON from the response
     const jsonMatch = generatedText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      throw new Error("Could not parse Gemini response");
+      throw new Error("Could not parse AI response");
     }
 
     const result = JSON.parse(jsonMatch[0]);
@@ -74,7 +74,7 @@ Consider legal precedents, evidence strength, procedural requirements, and appli
     };
 
   } catch (error) {
-    console.error("Error calling Gemini API:", error);
+    console.error("Error calling AI API:", error);
     
     // Fallback prediction if API fails
     return {
