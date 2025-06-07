@@ -11,28 +11,34 @@ const ProjectInfo = () => {
 
   const teamMembers = [
     {
-      name: "Sarah Johnson",
-      role: "Lead Developer",
-      image: "/placeholder.svg",
+      name: "Urvashi Ghore",
+      role: "Student Developer",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face",
       description: "Specializes in machine learning and legal tech"
     },
     {
-      name: "Michael Chen",
-      role: "Data Scientist",
-      image: "/placeholder.svg", 
-      description: "Expert in legal data analysis and AI models"
+      name: "Apurva Bhajan",
+      role: "Student Developer",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      description: "Expert in data analysis and AI models"
     },
     {
-      name: "Dr. Emily Rodriguez",
+      name: "Manish Thoke",
+      role: "Student Developer",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      description: "Frontend development and user experience"
+    },
+    {
+      name: "Harsh Dongare",
+      role: "Student Developer",
+      image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=400&fit=crop&crop=face",
+      description: "Backend systems and database design"
+    },
+    {
+      name: "Prof. Mrs. Radhika Adki",
       role: "Project Guide",
-      image: "/placeholder.svg",
-      description: "Professor of Law and Technology"
-    },
-    {
-      name: "Prof. David Kim",
-      role: "Technical Advisor",
-      image: "/placeholder.svg",
-      description: "AI Research and Development"
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+      description: "Professor of Computer Science and AI Research"
     }
   ];
 
@@ -126,7 +132,7 @@ const ProjectInfo = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {teamMembers.map((member, index) => (
                 <div key={index} className="text-center space-y-4">
                   <Avatar className="w-32 h-32 mx-auto border-4 border-blue-400/30">
@@ -166,7 +172,7 @@ const ProjectInfo = () => {
               </div>
               <div className="text-center p-6 bg-emerald-600/20 rounded-lg border border-emerald-400/30">
                 <div className="text-3xl font-bold text-emerald-400 mb-2">10,000+</div>
-                <div className="text-slate-300">Cases Analyzed</div>
+                <div className="text-slate-300">Cases Studied</div>
               </div>
               <div className="text-center p-6 bg-purple-600/20 rounded-lg border border-purple-400/30">
                 <div className="text-3xl font-bold text-purple-400 mb-2">50+</div>

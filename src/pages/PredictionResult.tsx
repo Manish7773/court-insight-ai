@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -42,7 +41,6 @@ const PredictionResult = () => {
   }, [navigate]);
 
   const generateMockPrediction = (caseText: string) => {
-    const caseType = determineCaseType(caseText.toLowerCase());
     const outcomes = [
       {
         outcome: "Judgment in favor of the Plaintiff",
@@ -55,33 +53,23 @@ const PredictionResult = () => {
         ]
       },
       {
-        outcome: "Case will be Dismissed",
-        probability: 65,
-        type: "unfavorable", 
-        reasoning: [
-          "Insufficient evidence to support the claims",
-          "Statute of limitations may have expired",
-          "Procedural issues affect case validity"
-        ]
-      },
-      {
-        outcome: "Settlement Recommended",
-        probability: 85,
-        type: "neutral",
-        reasoning: [
-          "Both parties have valid arguments",
-          "Cost-benefit analysis favors settlement",
-          "Court backlog suggests lengthy litigation"
-        ]
-      },
-      {
-        outcome: "Judgment in favor of the Defendant",
+        outcome: "Not in favor of the Plaintiff",
         probability: 72,
-        type: "unfavorable",
+        type: "unfavorable", 
         reasoning: [
           "Defendant's constitutional rights were violated",
           "Burden of proof not met by prosecution",
           "Key evidence may be inadmissible"
+        ]
+      },
+      {
+        outcome: "Case will be Dismissed",
+        probability: 65,
+        type: "neutral",
+        reasoning: [
+          "Insufficient evidence to support the claims",
+          "Statute of limitations may have expired",
+          "Procedural issues affect case validity"
         ]
       }
     ];

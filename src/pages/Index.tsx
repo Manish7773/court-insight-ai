@@ -6,18 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Scale, Gavel, BookOpen } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { Scale, Gavel, BookOpen } from "lucide-react";
 import { toast } from "sonner";
 
 interface User {
   firstName: string;
   lastName: string;
   email: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   password: string;
 }
 
@@ -32,7 +28,7 @@ const Index = () => {
     firstName: "",
     lastName: "",
     email: "",
-    dateOfBirth: undefined as Date | undefined,
+    dateOfBirth: "",
     password: "",
     confirmPassword: ""
   });
@@ -211,37 +207,14 @@ const Index = () => {
                       />
                     </div>
                     <div>
-                      <Label>Date of Birth</Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal",
-                              !registerForm.dateOfBirth && "text-muted-foreground"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {registerForm.dateOfBirth ? (
-                              format(registerForm.dateOfBirth, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={registerForm.dateOfBirth}
-                            onSelect={(date) => setRegisterForm({...registerForm, dateOfBirth: date})}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                            className="pointer-events-auto"
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                      <Input
+                        id="dateOfBirth"
+                        type="date"
+                        value={registerForm.dateOfBirth}
+                        onChange={(e) => setRegisterForm({...registerForm, dateOfBirth: e.target.value})}
+                        required
+                      />
                     </div>
                     <div>
                       <Label htmlFor="password">Password</Label>
