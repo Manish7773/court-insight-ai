@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -85,20 +84,18 @@ const Index = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const user = users.find(u => 
-      u.firstName === loginForm.firstName && 
-      u.lastName === loginForm.lastName && 
-      u.password === loginForm.password
-    );
-
-    if (user) {
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      toast.success("Login successful!");
-      setLoginOpen(false);
-      navigate("/project-info");
-    } else {
-      toast.error("Invalid credentials");
-    }
+    // Always redirect to project info page regardless of credentials
+    localStorage.setItem("currentUser", JSON.stringify({
+      firstName: loginForm.firstName,
+      lastName: loginForm.lastName,
+      email: "user@example.com",
+      dateOfBirth: "01/01/1990",
+      password: loginForm.password
+    }));
+    
+    toast.success("Login successful!");
+    setLoginOpen(false);
+    navigate("/project-info");
   };
 
   return (
