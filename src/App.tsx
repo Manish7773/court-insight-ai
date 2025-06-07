@@ -1,9 +1,13 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import ProjectInfo from "./pages/ProjectInfo";
+import CaseInput from "./pages/CaseInput";
+import PredictionResult from "./pages/PredictionResult";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,7 +20,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/project-info" element={<ProjectInfo />} />
+          <Route path="/case-input" element={<CaseInput />} />
+          <Route path="/prediction-result" element={<PredictionResult />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
