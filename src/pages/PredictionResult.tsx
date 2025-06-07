@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,14 +14,24 @@ import {
   Scale, 
   FileText,
   Clock,
-  AlertTriangle
+  AlertTriangle,
+  LogOut
 } from "lucide-react";
+import { analyzeCaseWithGemini, PredictionResult as PredictionData } from "@/utils/geminiService";
+import { toast } from "sonner";
 
 const PredictionResult = () => {
   const [caseDetails, setCaseDetails] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [prediction, setPrediction] = useState<any>(null);
+  const [prediction, setPrediction] = useState<PredictionData | null>(null);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("submittedCase");
+    toast.success("Logged out successfully!");
+    navigate("/");
+  };
 
   useEffect(() => {
     const submittedCase = localStorage.getItem("submittedCase");
@@ -31,89 +42,24 @@ const PredictionResult = () => {
 
     setCaseDetails(submittedCase);
     
-    // Simulate AI processing
+    // Call Gemini AI for prediction
+    const getPrediction = async () => {
+      try {
+        const result = await analyzeCaseWithGemini(submittedCase);
+        setPrediction(result);
+      } catch (error) {
+        console.error("Error getting prediction:", error);
+        toast.error("Failed to analyze case. Please try again.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Simulate some processing time for better UX
     setTimeout(() => {
-      // Generate mock prediction based on case content
-      const mockPrediction = generateMockPrediction(submittedCase);
-      setPrediction(mockPrediction);
-      setIsLoading(false);
+      getPrediction();
     }, 3000);
   }, [navigate]);
-
-  const generateMockPrediction = (caseText: string) => {
-    const outcomes = [
-      {
-        outcome: "Judgment in favor of the Plaintiff",
-        probability: 78,
-        type: "favorable",
-        reasoning: [
-          "Strong legal precedent supports plaintiff's position",
-          "Evidence strongly favors plaintiff's claims",
-          "Defendant's arguments lack substantial legal foundation"
-        ]
-      },
-      {
-        outcome: "Not in favor of the Plaintiff",
-        probability: 72,
-        type: "unfavorable", 
-        reasoning: [
-          "Defendant's constitutional rights were violated",
-          "Burden of proof not met by prosecution",
-          "Key evidence may be inadmissible"
-        ]
-      },
-      {
-        outcome: "Case will be Dismissed",
-        probability: 65,
-        type: "neutral",
-        reasoning: [
-          "Insufficient evidence to support the claims",
-          "Statute of limitations may have expired",
-          "Procedural issues affect case validity"
-        ]
-      }
-    ];
-
-    return outcomes[Math.floor(Math.random() * outcomes.length)];
-  };
-
-  const determineCaseType = (text: string) => {
-    if (text.includes("criminal") || text.includes("prosecution")) return "Criminal";
-    if (text.includes("contract") || text.includes("breach")) return "Contract";
-    if (text.includes("divorce") || text.includes("custody")) return "Family";
-    if (text.includes("property") || text.includes("real estate")) return "Property";
-    return "Civil";
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
-        <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white max-w-md w-full mx-4">
-          <CardHeader className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400 mx-auto mb-4" />
-            <CardTitle className="text-2xl">Analyzing Your Case</CardTitle>
-            <CardDescription className="text-slate-300">
-              Our AI is processing legal precedents and case patterns...
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex justify-between text-sm text-slate-300">
-                <span>Analysis Progress</span>
-                <span>Processing...</span>
-              </div>
-              <Progress value={85} className="w-full" />
-              <div className="text-center text-sm text-slate-400">
-                Analyzing over 10,000 legal cases and precedents
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  if (!prediction) return null;
 
   const getOutcomeIcon = (type: string) => {
     switch (type) {
@@ -137,20 +83,59 @@ const PredictionResult = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center">
+        <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white max-w-md w-full mx-4">
+          <CardHeader className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-400 mx-auto mb-4" />
+            <CardTitle className="text-2xl">Analyzing Your Case with Gemini AI</CardTitle>
+            <CardDescription className="text-slate-300">
+              Google Gemini is processing legal precedents and case patterns...
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex justify-between text-sm text-slate-300">
+                <span>AI Analysis Progress</span>
+                <span>Processing...</span>
+              </div>
+              <Progress value={85} className="w-full" />
+              <div className="text-center text-sm text-slate-400">
+                Powered by Google Gemini AI - Analyzing legal complexity
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!prediction) return null;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
+        {/* Header with Logout */}
+        <div className="text-center mb-12 relative">
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="absolute top-0 right-0 border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
+          
           <div className="flex items-center justify-center mb-6">
             <Scale className="h-16 w-16 text-blue-400" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Judgment Prediction
+            Gemini AI Prediction
             <span className="block text-blue-400">Result</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            AI-powered analysis complete with detailed outcome prediction and legal insights
+            AI-powered analysis complete with detailed outcome prediction powered by Google Gemini
           </p>
         </div>
 
@@ -162,7 +147,7 @@ const PredictionResult = () => {
                 {getOutcomeIcon(prediction.type)}
               </div>
               <CardTitle className="text-3xl font-bold mb-2">
-                Predicted Outcome
+                Gemini AI Predicted Outcome
               </CardTitle>
               <CardDescription className="text-white/90 text-xl">
                 {prediction.outcome}
@@ -171,7 +156,7 @@ const PredictionResult = () => {
             <CardContent className="space-y-6">
               <div className="text-center">
                 <div className="text-5xl font-bold mb-2">{prediction.probability}%</div>
-                <div className="text-lg opacity-90">Confidence Level</div>
+                <div className="text-lg opacity-90">AI Confidence Level</div>
                 <Progress 
                   value={prediction.probability} 
                   className="w-full mt-4 h-3"
@@ -187,7 +172,7 @@ const PredictionResult = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <FileText className="h-6 w-6 text-blue-400" />
-                  Key Legal Reasoning
+                  Gemini AI Legal Reasoning
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -199,6 +184,9 @@ const PredictionResult = () => {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-4 p-3 bg-blue-600/10 rounded-lg border border-blue-400/30">
+                  <p className="text-sm text-blue-300">{prediction.confidence}</p>
+                </div>
               </CardContent>
             </Card>
 
@@ -207,14 +195,14 @@ const PredictionResult = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-3">
                   <TrendingUp className="h-6 w-6 text-emerald-400" />
-                  Analysis Metrics
+                  Gemini AI Analysis Metrics
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Similar Cases Analyzed</span>
+                  <span className="text-slate-300">AI Model Used</span>
                   <Badge variant="secondary" className="bg-blue-600/20 text-blue-300">
-                    2,847
+                    Google Gemini Pro
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
@@ -224,15 +212,15 @@ const PredictionResult = () => {
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Precedent Matches</span>
+                  <span className="text-slate-300">Analysis Depth</span>
                   <Badge variant="secondary" className="bg-purple-600/20 text-purple-300">
-                    147 cases
+                    Comprehensive
                   </Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Model Accuracy</span>
+                  <span className="text-slate-300">Confidence Score</span>
                   <Badge variant="secondary" className="bg-amber-600/20 text-amber-300">
-                    94.2%
+                    {prediction.probability}%
                   </Badge>
                 </div>
               </CardContent>
@@ -272,13 +260,13 @@ const PredictionResult = () => {
             </Button>
 
             <Button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/project-info")}
               variant="outline"
               size="lg"
               className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-4 text-lg rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
             >
               <Home className="mr-3 h-6 w-6" />
-              🏠 Return to Home
+              🏠 Return to Project Info
             </Button>
           </div>
         </div>

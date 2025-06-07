@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Scale, Gavel, BookOpen } from "lucide-react";
+import { Scale, Gavel, BookOpen, Brain, Cpu } from "lucide-react";
 import { toast } from "sonner";
 
 interface User {
@@ -19,7 +19,6 @@ interface User {
 
 const Index = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const navigate = useNavigate();
@@ -68,10 +67,19 @@ const Index = () => {
     };
 
     setUsers([...users, newUser]);
-    setCurrentUser(newUser);
-    toast.success("Registration successful!");
+    toast.success("Registration successful! Please login.");
     setRegisterOpen(false);
-    navigate("/project-info");
+    setLoginOpen(true);
+    
+    // Reset form
+    setRegisterForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      dateOfBirth: "",
+      password: "",
+      confirmPassword: ""
+    });
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -84,7 +92,7 @@ const Index = () => {
     );
 
     if (user) {
-      setCurrentUser(user);
+      localStorage.setItem("currentUser", JSON.stringify(user));
       toast.success("Login successful!");
       setLoginOpen(false);
       navigate("/project-info");
@@ -108,6 +116,13 @@ const Index = () => {
                   <Gavel className="h-8 w-8 text-amber-400" />
                 </div>
               </div>
+              <div className="text-4xl font-bold text-white">+</div>
+              <div className="relative">
+                <Brain className="h-16 w-16 text-purple-400" />
+                <div className="absolute -bottom-1 -right-1">
+                  <Cpu className="h-8 w-8 text-emerald-400" />
+                </div>
+              </div>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -116,8 +131,28 @@ const Index = () => {
             </h1>
             
             <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Advanced AI-powered legal analysis platform for predicting case outcomes and supporting legal professionals with intelligent insights.
+              Advanced AI-powered legal analysis platform using Google Gemini for predicting case outcomes and supporting legal professionals with intelligent insights.
             </p>
+
+            {/* Court & AI Themed Images */}
+            <div className="grid md:grid-cols-4 gap-6 mt-12 mb-12">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <Scale className="h-12 w-12 text-blue-400 mx-auto mb-2" />
+                <p className="text-slate-300 text-sm">Legal Justice</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <Gavel className="h-12 w-12 text-amber-400 mx-auto mb-2" />
+                <p className="text-slate-300 text-sm">Court Proceedings</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <Brain className="h-12 w-12 text-purple-400 mx-auto mb-2" />
+                <p className="text-slate-300 text-sm">AI Intelligence</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <Cpu className="h-12 w-12 text-emerald-400 mx-auto mb-2" />
+                <p className="text-slate-300 text-sm">Machine Learning</p>
+              </div>
+            </div>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
@@ -207,10 +242,11 @@ const Index = () => {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                      <Label htmlFor="dateOfBirth">Date of Birth (DD/MM/YYYY)</Label>
                       <Input
                         id="dateOfBirth"
-                        type="date"
+                        type="text"
+                        placeholder="DD/MM/YYYY"
                         value={registerForm.dateOfBirth}
                         onChange={(e) => setRegisterForm({...registerForm, dateOfBirth: e.target.value})}
                         required
@@ -250,11 +286,11 @@ const Index = () => {
             <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
               <CardHeader>
                 <BookOpen className="h-12 w-12 text-blue-400 mb-4" />
-                <CardTitle>AI-Powered Analysis</CardTitle>
+                <CardTitle>Gemini AI Analysis</CardTitle>
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-slate-300">
-                  Advanced machine learning algorithms analyze case details and legal precedents.
+                  Powered by Google Gemini AI to analyze case details and legal precedents with advanced reasoning.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -266,7 +302,7 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-slate-300">
-                  Predict case outcomes with high accuracy based on historical data patterns.
+                  Predict case outcomes with high accuracy based on historical data patterns and AI insights.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -278,7 +314,7 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-slate-300">
-                  Comprehensive analysis and recommendations for legal professionals.
+                  Comprehensive analysis and recommendations for legal professionals powered by AI.
                 </CardDescription>
               </CardContent>
             </Card>
