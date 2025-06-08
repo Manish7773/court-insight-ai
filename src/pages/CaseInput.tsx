@@ -10,7 +10,7 @@ import { toast } from "sonner";
 const CaseInput = () => {
   const [caseDetails, setCaseDetails] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [navigate] = useNavigate();
+  const navigate = useNavigate();
 
   const maxLength = 3000;
   const remainingChars = maxLength - caseDetails.length;
