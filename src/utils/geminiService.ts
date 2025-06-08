@@ -1,5 +1,6 @@
 
-const GEMINI_API_KEY = "";
+
+const GEMINI_API_KEY = "AIzaSyCqL8kF9X2VwQxH5K3jN4mP7rT6sU8vW1Y";
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
 export interface PredictionResult {
@@ -90,3 +91,4 @@ Consider legal precedents, evidence strength, procedural requirements, and appli
     };
   }
 };
+
