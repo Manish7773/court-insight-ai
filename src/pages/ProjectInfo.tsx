@@ -1,19 +1,13 @@
+
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Users, Target, Lightbulb, Award, LogOut } from "lucide-react";
-import { toast } from "sonner";
+import { ArrowRight, Users, Target, Lightbulb, Award } from "lucide-react";
 
 const ProjectInfo = () => {
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    toast.success("Logged out successfully!");
-    navigate("/");
-  };
 
   const teamMembers = [
     {
@@ -51,17 +45,8 @@ const ProjectInfo = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
-        {/* Header with Logout */}
-        <div className="text-center mb-16 relative">
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            className="absolute top-0 right-0 border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
-          
+        {/* Header */}
+        <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Project Overview
           </h1>
@@ -81,19 +66,19 @@ const ProjectInfo = () => {
           <CardContent className="space-y-4 text-lg leading-relaxed">
             <p>
               The Court Case Judgement Analysis system represents a groundbreaking approach to legal technology, 
-              leveraging advanced AI to assist legal professionals in predicting case outcomes 
+              leveraging advanced artificial intelligence to assist legal professionals in predicting case outcomes 
               with unprecedented accuracy.
             </p>
             <p>
-              Our platform analyzes vast amounts of legal data, case histories, and judicial patterns using 
-              advanced AI models to provide intelligent insights that can significantly enhance legal strategy 
-              and decision-making processes. By combining natural language processing with deep learning algorithms, 
-              we transform complex legal documents into actionable intelligence.
+              Our platform analyzes vast amounts of legal data, case histories, and judicial patterns to provide 
+              intelligent insights that can significantly enhance legal strategy and decision-making processes. 
+              By combining natural language processing with deep learning algorithms, we transform complex legal 
+              documents into actionable intelligence.
             </p>
             <p>
               This system serves as a powerful tool for lawyers, judges, legal researchers, and law students, 
-              offering comprehensive analysis capabilities powered by state-of-the-art AI models 
-              that were previously impossible without extensive manual research and years of experience.
+              offering comprehensive analysis capabilities that were previously impossible without extensive 
+              manual research and years of experience.
             </p>
           </CardContent>
         </Card>
@@ -110,13 +95,13 @@ const ProjectInfo = () => {
             <p>
               The legal system faces numerous challenges in the modern era: case backlogs, inconsistent judgments, 
               and the time-intensive nature of legal research. Our motivation stems from the urgent need to 
-              democratize access to legal intelligence and improve the efficiency of judicial processes using AI.
+              democratize access to legal intelligence and improve the efficiency of judicial processes.
             </p>
             <div className="grid md:grid-cols-2 gap-6 mt-6">
               <div className="space-y-3">
                 <h4 className="font-semibold text-blue-400">Primary Objectives:</h4>
                 <ul className="space-y-2 text-slate-300">
-                  <li>• Accelerate legal research processes using AI</li>
+                  <li>• Accelerate legal research processes</li>
                   <li>• Enhance prediction accuracy of case outcomes</li>
                   <li>• Reduce judicial bias through data-driven insights</li>
                   <li>• Improve access to legal intelligence for all practitioners</li>
