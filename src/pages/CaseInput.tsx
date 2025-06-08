@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { FileText, Send, AlertCircle } from "lucide-react";
+import { FileText, Send, AlertCircle, LogOut } from "lucide-react";
 import { toast } from "sonner";
 
 const CaseInput = () => {
@@ -15,6 +14,12 @@ const CaseInput = () => {
 
   const maxLength = 3000;
   const remainingChars = maxLength - caseDetails.length;
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    toast.success("Logged out successfully!");
+    navigate("/");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,21 +42,30 @@ const CaseInput = () => {
     // Store case details for the results page
     localStorage.setItem("submittedCase", caseDetails);
     
-    toast.success("Case submitted successfully!");
+    toast.success("Case submitted successfully! Analyzing with AI...");
     navigate("/prediction-result");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
+        {/* Header with Logout */}
+        <div className="text-center mb-12 relative">
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="absolute top-0 right-0 border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+          </Button>
+          
           <div className="flex items-center justify-center mb-6">
             <FileText className="h-16 w-16 text-blue-400" />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Submit Legal Case
-            <span className="block text-blue-400">for Prediction</span>
+            <span className="block text-blue-400">for AI Prediction</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             Provide detailed case information for our AI system to analyze and predict the most likely judicial outcome
@@ -64,10 +78,10 @@ const CaseInput = () => {
             <CardHeader>
               <CardTitle className="text-2xl flex items-center gap-3">
                 <FileText className="h-8 w-8 text-blue-400" />
-                Case Details Submission
+                Case Details Submission for AI Analysis
               </CardTitle>
               <CardDescription className="text-slate-300 text-lg">
-                Enter comprehensive case information including facts, context, legal issues, and relevant circumstances
+                Enter comprehensive case information including facts, context, legal issues, and relevant circumstances for AI analysis
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -91,7 +105,7 @@ Example format:
 • Precedents: Relevant case law or statutes
 • Circumstances: Any special circumstances or considerations
 
-Please be as detailed and specific as possible to ensure accurate prediction."
+Please be as detailed and specific as possible to ensure accurate AI prediction."
                       value={caseDetails}
                       onChange={(e) => setCaseDetails(e.target.value.slice(0, maxLength))}
                       className="min-h-[400px] bg-white/5 border-white/20 text-white placeholder:text-slate-400 resize-none text-lg leading-relaxed"
@@ -109,13 +123,14 @@ Please be as detailed and specific as possible to ensure accurate prediction."
                     <div className="flex items-start gap-3">
                       <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
                       <div className="space-y-2">
-                        <h4 className="font-semibold text-blue-400">Submission Guidelines:</h4>
+                        <h4 className="font-semibold text-blue-400">AI Analysis Guidelines:</h4>
                         <ul className="text-sm text-slate-300 space-y-1">
                           <li>• Provide objective facts without personal opinions</li>
                           <li>• Include relevant dates, locations, and parties involved</li>
                           <li>• Mention applicable laws, regulations, or precedents</li>
                           <li>• Describe the relief or remedy sought</li>
                           <li>• Include any mitigating or aggravating circumstances</li>
+                          <li>• The more detailed your input, the better AI can analyze</li>
                         </ul>
                       </div>
                     </div>
@@ -147,12 +162,12 @@ Please be as detailed and specific as possible to ensure accurate prediction."
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3" />
-                        Processing Case...
+                        Submitting to AI...
                       </>
                     ) : (
                       <>
                         <Send className="mr-3 h-6 w-6" />
-                        🧾 Submit Case for Analysis
+                        🧾 Analyze with AI
                       </>
                     )}
                   </Button>
@@ -165,22 +180,22 @@ Please be as detailed and specific as possible to ensure accurate prediction."
           <div className="grid md:grid-cols-2 gap-6 mt-8">
             <Card className="bg-white/5 backdrop-blur-sm border-white/20 text-white">
               <CardHeader>
-                <CardTitle className="text-lg">Processing Time</CardTitle>
+                <CardTitle className="text-lg">AI Processing</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-300">
-                  Our AI system typically processes cases within 5-10 seconds, analyzing thousands of legal precedents and patterns.
+                  Our AI system analyzes your case within seconds, processing legal precedents and patterns with advanced reasoning.
                 </p>
               </CardContent>
             </Card>
 
             <Card className="bg-white/5 backdrop-blur-sm border-white/20 text-white">
               <CardHeader>
-                <CardTitle className="text-lg">Prediction Accuracy</CardTitle>
+                <CardTitle className="text-lg">AI Prediction Accuracy</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-300">
-                  Based on extensive testing, our system maintains a 94% accuracy rate across various case types and jurisdictions.
+                  Powered by advanced AI, our system provides highly accurate predictions based on comprehensive legal analysis.
                 </p>
               </CardContent>
             </Card>
